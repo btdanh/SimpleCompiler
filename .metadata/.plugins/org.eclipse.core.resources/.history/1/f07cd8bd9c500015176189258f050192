@@ -1,0 +1,16 @@
+grammar Decaf;
+
+/* Parser grammar */
+program: CLASS PROGRAM BRACKET_OPEN field_decl method_decl BRACKET_CLOSE;
+
+field_decl: ;
+
+method_decl: ;
+
+
+/*Lexer grammar */
+CLASS: 'class';
+PROGRAM: 'Program';
+BRACKET_OPEN: '{';
+BRACKET_CLOSE: '}';
+

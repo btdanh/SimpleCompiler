@@ -1,0 +1,11 @@
+grammar Decaf;
+
+Type: 'int' | 'boolean';
+boolean: ;
+
+int: ;
+
+
+Assign_op: = | += | -=;
+ 
+
