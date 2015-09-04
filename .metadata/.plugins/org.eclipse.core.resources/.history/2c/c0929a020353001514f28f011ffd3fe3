@@ -1,0 +1,52 @@
+parser grammar DecafParser;
+
+options{tokenVocab=DecafLexer;}
+
+/* Parser grammar */
+program: CLASS PROGRAM BRACKET_OPEN field_decl_s method_decl_s BRACKET_CLOSE;
+
+field_decl_s: (field_decl)* SEMICOLON;
+field_decl: type field_decl_name (COMMA field_decl_name)*;
+field_decl_name: (IDENTIIER | IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE);
+
+method_decl_s: (method_decl)*;
+method_decl: (type | VOID) IDENTIIER PARENTHESIS_OPEN param_decl_s PARENTHESIS_CLOSE block;
+param_decl_s: (param_decl)*; 
+param_decl: (type IDENTIIER) (COMMA type IDENTIIER)*;
+
+block: BRACKET_OPEN var_decl_s statement_s BRACKET_CLOSE;
+var_decl_s: (var_decl)* SEMICOLON;
+var_decl: type IDENTIIER  (COMMA IDENTIIER)*;
+statement_s: (statement)*;
+statement: location /*ASSIGN_OP*/ COMMA expr SEMICOLON
+			| method_call SEMICOLON
+			| IF PARENTHESIS_OPEN expr PARENTHESIS_CLOSE  block (ELSE block)*
+			| FOR IDENTIIER '=' expr COMMA expr block
+			| RETURN (expr)* SEMICOLON
+			| BREAK SEMICOLON
+			| CONTINUE SEMICOLON
+			| block ;
+			
+			
+method_call: method_name PARENTHESIS_OPEN (expr (COMMA expr)*)* PARENTHESIS_CLOSE
+			| CALLOUT PARENTHESIS_OPEN STRING_LITERAL (COMMA callout_arg (COMMA callout_arg)*)* PARENTHESIS_CLOSE;
+method_name: IDENTIIER;
+
+location: IDENTIIER 
+		| IDENTIIER SQUARE_BRACKET_OPEN expr SQUARE_BRACKET_CLOSE;
+		
+expr: location
+	| method_call
+	| literal
+	| expr bin_op expr
+	| '-' expr
+	| '!' expr
+	| PARENTHESIS_OPEN expr PARENTHESIS_CLOSE; 
+
+callout_arg: expr | STRING_LITERAL;
+bin_op: ARITH_OP | RELOP | EQ_OP | COND_OP;
+literal: INT_LITERAL | CHAR_LITERAL | BOOL_LITERAL;
+type: INT | BOOLEAN;
+
+ 
+

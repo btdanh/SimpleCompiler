@@ -1,0 +1,8 @@
+lexer grammar CharGrammar;
+
+LSINGLE_QUOTE: '\'' -> more, mode (CHAR_MODE);
+
+mode CHAR_MODE;
+
+RSINGLE_QUOTE: '\'' ->mode (DEFAULT_MODE);
+CHAR_TEXT: '.'

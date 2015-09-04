@@ -1,0 +1,8 @@
+lexer grammar StringLexer;
+
+fragment CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
+
+LDOUBLE_QUOTE: '"' -> more, mode (STRING_MODE);
+mode STRING_MODE;
+STRING_LITERAL: '"' ->mode (DEFAULT_MODE), channel(100);
+TEXT: . -> more;

@@ -1,0 +1,5 @@
+lexer grammar CharGrammar;
+
+mode CHAR_MODE;
+
+RSINGLE_QUOTE: '\'' ->mode (DEFAULT_MODE);

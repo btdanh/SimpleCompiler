@@ -38,9 +38,10 @@ public class Compiler {
 				
 		Map<String, Integer> map = parser.getTokenTypeMap();				
 		
-		for (Token t :  lexicalAnalyzer.getAllTokens()){			
-			
-			String tokenType = LookUpTokenName(map, t.getType());	
+		for (Token t :  lexicalAnalyzer.getAllTokens()){
+
+			int channel = t.getChannel();
+			String tokenType = (channel == DecafLexer.SHOULD_SHOW) ? LookUpTokenName(map, t.getType()) : "";	
 			
 			bufferedOutput.write(t.getLine() + " " + tokenType + " " + t.getText());
 			bufferedOutput.newLine();

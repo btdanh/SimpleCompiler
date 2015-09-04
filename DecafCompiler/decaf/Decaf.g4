@@ -1,9 +1,40 @@
 grammar Decaf;
 
+@lexer::header{
+	import java.util.Map;
+	import java.util.HashMap;
+}
+
+
+tokens{CLASS, PROGRAM, IF, ELSE, FOR, RETURN, BREAK, CONTINUE, CALLOUT, BOOLEAN, TRUE, FALSE, INT, VOID}
+
+@lexer::members{
+	
+	public static final int SHOULD_SHOW = 100;
+	
+	Map<String, Integer> keywords = new HashMap<String, Integer>(){{
+		put("class", DecafParser.CLASS);
+		put("Program", DecafParser.PROGRAM);
+		put("if", DecafParser.IF);
+		put("else", DecafParser.ELSE);
+		put("for", DecafParser.FOR);
+		put("return", DecafParser.RETURN);
+		put("break", DecafParser.BREAK);
+		put("continue", DecafParser.CONTINUE);
+		put("callout", DecafParser.CALLOUT);
+		put("boolean", DecafParser.BOOLEAN);
+		put("true", DecafParser.TRUE);
+		put("false", DecafParser.FALSE);
+		put("int", DecafParser.INT);
+		put("void", DecafParser.VOID);		
+	}};
+}
+
+
 /* Parser grammar */
 program: CLASS PROGRAM BRACKET_OPEN field_decl_s method_decl_s BRACKET_CLOSE;
 
-field_decl_s: (field_decl)*;
+field_decl_s: (field_decl)* SEMICOLON;
 field_decl: type field_decl_name (COMMA field_decl_name)*;
 field_decl_name: (IDENTIIER | IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE);
 
@@ -13,17 +44,17 @@ param_decl_s: (param_decl)*;
 param_decl: (type IDENTIIER) (COMMA type IDENTIIER)*;
 
 block: BRACKET_OPEN var_decl_s statement_s BRACKET_CLOSE;
-var_decl_s: (var_decl)*;
+var_decl_s: (var_decl)* SEMICOLON;
 var_decl: type IDENTIIER  (COMMA IDENTIIER)*;
 statement_s: (statement)*;
-statement: location ASSIGN_OP expr 
-			| method_call
+statement: location ASSIGN_OP expr SEMICOLON
+			| method_call SEMICOLON
 			| IF PARENTHESIS_OPEN expr PARENTHESIS_CLOSE  block (ELSE block)*
 			| FOR IDENTIIER '=' expr COMMA expr block
-			| RETURN (expr)*
-			| BREAK
-			| CONTINUE
-			| block;
+			| RETURN (expr)* SEMICOLON
+			| BREAK SEMICOLON
+			| CONTINUE SEMICOLON
+			| block ;
 			
 			
 method_call: method_name PARENTHESIS_OPEN (expr (COMMA expr)*)* PARENTHESIS_CLOSE
@@ -44,61 +75,54 @@ expr: location
 callout_arg: expr | STRING_LITERAL;
 bin_op: ARITH_OP | RELOP | EQ_OP | COND_OP;
 literal: INT_LITERAL | CHAR_LITERAL | BOOL_LITERAL;
+type: INT | BOOLEAN;
 
-fragment DECIMAL_LITERAL: (DIGIT)+ ;
+ fragment DECIMAL_LITERAL: (DIGIT)+ ;
 fragment HEX_LITERAL: HEX_PRFEFIX (HEX_DIGIT)+;
 HEX_PRFEFIX: '0x';
-INT_LITERAL: DECIMAL_LITERAL | HEX_LITERAL;
-CHAR_LITERAL: '\'' CHAR '\'';
-STRING_LITERAL: '"' (CHAR)* '"';
+INT_LITERAL:(DECIMAL_LITERAL | HEX_LITERAL)->channel(SHOULD_SHOW);
+BOOL_LITERAL: ('true' | 'false')->channel(SHOULD_SHOW);
 
-IDENTIIER: ALPHA (ALPHA_NUM)*;
+fragment ALPHA: ('a' .. 'z') | ('A' .. 'Z') | '_';
+fragment DIGIT: ('0' .. '9');
 fragment ALPHA_NUM: ALPHA | DIGIT;
 fragment HEX_DIGIT: DIGIT | ('a' .. 'f') | ('A' .. 'F');
 
 
-/*Lexer grammar */
+fragment ID: ALPHA (ALPHA_NUM)*;  
+IDENTIIER: (ID { 
+	if(keywords.containsKey(getText())){
+		setType(keywords.get(getText()));
+	}
+	else{
+		_channel = SHOULD_SHOW;
+	}
+});
 
-CLASS: 'class';
-PROGRAM: 'Program';
 
 BRACKET_OPEN: '{';
 BRACKET_CLOSE: '}';
 
-type: INT | BOOLEAN;
-INT: 'int';
-BOOLEAN: 'boolean';
-VOID: 'void';
-
 SQUARE_BRACKET_OPEN: '[';
 SQUARE_BRACKET_CLOSE: ']';
 COMMA: ',';
+SEMICOLON: ';';
 
 PARENTHESIS_OPEN: '(';
 PARENTHESIS_CLOSE: ')';
 
 ASSIGN_OP: '=' | '+=' | '-=';
-IF: 'if';
-ELSE: 'else';
-FOR: 'for';
-RETURN: 'return';
-BREAK: 'break';
-CONTINUE: 'continue';
-CALLOUT: 'callout';
-
 ARITH_OP: '+' | '-' | '*' | '/' | '%';
 RELOP: '<' | '>' | '<=' | '>=';
 EQ_OP: '==' | '!=';
 COND_OP: '&&' | '||';
 
-fragment ALPHA: ('a' .. 'z') | ('A' .. 'Z') | '_';
-fragment DIGIT: ('0' .. '9');
-fragment CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
-
-BOOL_LITERAL: TRUE | FALSE;
-fragment TRUE: 'true';
-fragment FALSE: 'false';
 
 WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ ->skip;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip;
 EOL_COMMENT : '//' .*? '\n' -> skip;
+
+fragment CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
+CHAR_LITERAL: ('\'' CHAR '\'')->channel(SHOULD_SHOW);
+STRING_LITERAL: ('"' CHAR* '"')->channel(SHOULD_SHOW);
+
