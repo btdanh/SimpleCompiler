@@ -4,22 +4,22 @@ grammar Decaf;
 program: CLASS PROGRAM BRACKET_OPEN field_decl_s method_decl_s BRACKET_CLOSE;
 
 field_decl_s: (field_decl)*;
-field_decl: TYPE field_decl_name (COMMA field_decl_name)*;
-field_decl_name: (id | id SQUARE_BRACKET_OPEN int_literal SQUARE_BRACKET_CLOSE);
+field_decl: type field_decl_name (COMMA field_decl_name)*;
+field_decl_name: (IDENTIIER | IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE);
 
 method_decl_s: (method_decl)*;
-method_decl: (TYPE | VOID) id PARENTHESIS_OPEN param_decl_s PARENTHESIS_CLOSE block;
+method_decl: (type | VOID) IDENTIIER PARENTHESIS_OPEN param_decl_s PARENTHESIS_CLOSE block;
 param_decl_s: (param_decl)*; 
-param_decl: (TYPE id) (COMMA TYPE id)*;
+param_decl: (type IDENTIIER) (COMMA type IDENTIIER)*;
 
 block: BRACKET_OPEN var_decl_s statement_s BRACKET_CLOSE;
 var_decl_s: (var_decl)*;
-var_decl: TYPE id  (COMMA id)*;
+var_decl: type IDENTIIER  (COMMA IDENTIIER)*;
 statement_s: (statement)*;
 statement: location ASSIGN_OP expr 
 			| method_call
 			| IF PARENTHESIS_OPEN expr PARENTHESIS_CLOSE  block (ELSE block)*
-			| FOR id '=' expr COMMA expr block
+			| FOR IDENTIIER '=' expr COMMA expr block
 			| RETURN (expr)*
 			| BREAK
 			| CONTINUE
@@ -27,11 +27,11 @@ statement: location ASSIGN_OP expr
 			
 			
 method_call: method_name PARENTHESIS_OPEN (expr (COMMA expr)*)* PARENTHESIS_CLOSE
-			| CALLOUT PARENTHESIS_OPEN string_literal (COMMA callout_arg (COMMA callout_arg)*)* PARENTHESIS_CLOSE;
-method_name: id;
+			| CALLOUT PARENTHESIS_OPEN STRING_LITERAL (COMMA callout_arg (COMMA callout_arg)*)* PARENTHESIS_CLOSE;
+method_name: IDENTIIER;
 
-location: id 
-		| id SQUARE_BRACKET_OPEN expr SQUARE_BRACKET_CLOSE;
+location: IDENTIIER 
+		| IDENTIIER SQUARE_BRACKET_OPEN expr SQUARE_BRACKET_CLOSE;
 		
 expr: location
 	| method_call
@@ -41,28 +41,33 @@ expr: location
 	| '!' expr
 	| PARENTHESIS_OPEN expr PARENTHESIS_CLOSE; 
 
-callout_arg: expr | string_literal;
+callout_arg: expr | STRING_LITERAL;
 bin_op: ARITH_OP | RELOP | EQ_OP | COND_OP;
-literal: int_literal | char_literal | BOOL_LITERAL;
+literal: INT_LITERAL | CHAR_LITERAL | BOOL_LITERAL;
 
-id: ALPHA (alpha_num)*;
-alpha_num: ALPHA | DIGIT;
-hex_digit: DIGIT | ('a' .. 'f') | ('A' .. 'F');
+fragment DECIMAL_LITERAL: (DIGIT)+ ;
+fragment HEX_LITERAL: HEX_PRFEFIX (HEX_DIGIT)+;
+HEX_PRFEFIX: '0x';
+INT_LITERAL: DECIMAL_LITERAL | HEX_LITERAL;
+CHAR_LITERAL: '\'' CHAR '\'';
+STRING_LITERAL: '"' (CHAR)* '"';
 
-int_literal: decimal_literal | hex_literal;
-decimal_literal: (DIGIT)+;
-hex_literal: 'Ox' (hex_digit)+;
-char_literal: '\'' CHAR '\'';
-string_literal: '"' (CHAR)* '"';
+IDENTIIER: ALPHA (ALPHA_NUM)*;
+fragment ALPHA_NUM: ALPHA | DIGIT;
+fragment HEX_DIGIT: DIGIT | ('a' .. 'f') | ('A' .. 'F');
+
 
 /*Lexer grammar */
+
 CLASS: 'class';
 PROGRAM: 'Program';
 
 BRACKET_OPEN: '{';
 BRACKET_CLOSE: '}';
 
-TYPE: 'int' | 'boolean';
+type: INT | BOOLEAN;
+INT: 'int';
+BOOLEAN: 'boolean';
 VOID: 'void';
 
 SQUARE_BRACKET_OPEN: '[';
@@ -86,9 +91,14 @@ RELOP: '<' | '>' | '<=' | '>=';
 EQ_OP: '==' | '!=';
 COND_OP: '&&' | '||';
 
-ALPHA: ('a' .. 'z') | ('A' .. 'Z') | '_';
-DIGIT: ('0' .. '9');
-BOOL_LITERAL: 'true' | 'false';
-CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
+fragment ALPHA: ('a' .. 'z') | ('A' .. 'Z') | '_';
+fragment DIGIT: ('0' .. '9');
+fragment CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
 
-WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ -> skip ;
+BOOL_LITERAL: TRUE | FALSE;
+fragment TRUE: 'true';
+fragment FALSE: 'false';
+
+WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ ->skip;
+BLOCK_COMMENT : '/*' .*? '*/' -> skip;
+EOL_COMMENT : '//' .*? '\n' -> skip;
