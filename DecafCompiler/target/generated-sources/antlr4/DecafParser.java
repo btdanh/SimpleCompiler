@@ -1,4 +1,4 @@
-// Generated from Decaf.g4 by ANTLR 4.4
+// Generated from DecafParser.g4 by ANTLR 4.4
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -16,20 +16,21 @@ public class DecafParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__2=1, T__1=2, T__0=3, HEX_PRFEFIX=4, INT_LITERAL=5, BOOL_LITERAL=6, 
-		IDENTIIER=7, BRACKET_OPEN=8, BRACKET_CLOSE=9, SQUARE_BRACKET_OPEN=10, 
-		SQUARE_BRACKET_CLOSE=11, COMMA=12, SEMICOLON=13, PARENTHESIS_OPEN=14, 
-		PARENTHESIS_CLOSE=15, ASSIGN_OP=16, ARITH_OP=17, RELOP=18, EQ_OP=19, COND_OP=20, 
-		WHITESPACE=21, BLOCK_COMMENT=22, EOL_COMMENT=23, CHAR_LITERAL=24, STRING_LITERAL=25, 
-		CLASS=26, PROGRAM=27, IF=28, ELSE=29, FOR=30, RETURN=31, BREAK=32, CONTINUE=33, 
-		CALLOUT=34, BOOLEAN=35, TRUE=36, FALSE=37, INT=38, VOID=39;
+		EOL_COMMENT=37, HEX_PRFEFIX=15, CLASS=1, INT_LITERAL=16, EQ_OP=22, ARITH_OP=20, 
+		NEGATIVE=24, LDOUBLE_QUOTE=41, ELSE=4, WHITESPACE=35, FOR=5, SEMICOLON=32, 
+		INT=13, SQUARE_BRACKET_CLOSE=30, BOOL_LITERAL=17, COND_OP=23, MINUS=26, 
+		PARENTHESIS_OPEN=33, TRUE=11, BREAK=7, SQUARE_BRACKET_OPEN=29, IF=3, ASSIGN_OP=19, 
+		STRING_LITERAL=39, BOOLEAN=10, CHAR_LITERAL=38, CONTINUE=8, COMMA=31, 
+		RETURN=6, BLOCK_COMMENT=36, PROGRAM=2, LSINGLE_QUOTE=40, ASSIGNMENT=25, 
+		VOID=14, PARENTHESIS_CLOSE=34, FALSE=12, IDENTIIER=18, BRACKET_CLOSE=28, 
+		RELOP=21, BRACKET_OPEN=27, CALLOUT=9;
 	public static final String[] tokenNames = {
-		"<INVALID>", "'-'", "'='", "'!'", "'0x'", "INT_LITERAL", "BOOL_LITERAL", 
-		"IDENTIIER", "'{'", "'}'", "'['", "']'", "','", "';'", "'('", "')'", "ASSIGN_OP", 
-		"ARITH_OP", "RELOP", "EQ_OP", "COND_OP", "WHITESPACE", "BLOCK_COMMENT", 
-		"EOL_COMMENT", "CHAR_LITERAL", "STRING_LITERAL", "CLASS", "PROGRAM", "IF", 
-		"ELSE", "FOR", "RETURN", "BREAK", "CONTINUE", "CALLOUT", "BOOLEAN", "TRUE", 
-		"FALSE", "INT", "VOID"
+		"<INVALID>", "CLASS", "PROGRAM", "IF", "ELSE", "FOR", "RETURN", "BREAK", 
+		"CONTINUE", "CALLOUT", "BOOLEAN", "TRUE", "FALSE", "INT", "VOID", "'0x'", 
+		"INT_LITERAL", "BOOL_LITERAL", "IDENTIIER", "ASSIGN_OP", "ARITH_OP", "RELOP", 
+		"EQ_OP", "COND_OP", "'!'", "'='", "'-'", "'{'", "'}'", "'['", "']'", "','", 
+		"';'", "'('", "')'", "WHITESPACE", "BLOCK_COMMENT", "EOL_COMMENT", "CHAR_LITERAL", 
+		"STRING_LITERAL", "'''", "'\"'"
 	};
 	public static final int
 		RULE_program = 0, RULE_field_decl_s = 1, RULE_field_decl = 2, RULE_field_decl_name = 3, 
@@ -46,7 +47,7 @@ public class DecafParser extends Parser {
 	};
 
 	@Override
-	public String getGrammarFileName() { return "Decaf.g4"; }
+	public String getGrammarFileName() { return "DecafParser.g4"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
@@ -81,11 +82,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterProgram(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitProgram(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitProgram(this);
 		}
 	}
 
@@ -128,11 +129,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_decl_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterField_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterField_decl_s(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitField_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitField_decl_s(this);
 		}
 	}
 
@@ -190,11 +191,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_decl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterField_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterField_decl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitField_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitField_decl(this);
 		}
 	}
 
@@ -245,11 +246,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_decl_name; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterField_decl_name(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterField_decl_name(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitField_decl_name(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitField_decl_name(this);
 		}
 	}
 
@@ -301,11 +302,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_method_decl_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterMethod_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterMethod_decl_s(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitMethod_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_decl_s(this);
 		}
 	}
 
@@ -362,11 +363,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_method_decl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterMethod_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterMethod_decl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitMethod_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_decl(this);
 		}
 	}
 
@@ -423,11 +424,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_param_decl_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterParam_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterParam_decl_s(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitParam_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitParam_decl_s(this);
 		}
 	}
 
@@ -485,11 +486,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_param_decl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterParam_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterParam_decl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitParam_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitParam_decl(this);
 		}
 	}
 
@@ -547,11 +548,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_block; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterBlock(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterBlock(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitBlock(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitBlock(this);
 		}
 	}
 
@@ -592,11 +593,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_var_decl_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterVar_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterVar_decl_s(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitVar_decl_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitVar_decl_s(this);
 		}
 	}
 
@@ -652,11 +653,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_var_decl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterVar_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterVar_decl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitVar_decl(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitVar_decl(this);
 		}
 	}
 
@@ -709,11 +710,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_statement_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterStatement_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterStatement_s(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitStatement_s(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitStatement_s(this);
 		}
 	}
 
@@ -727,7 +728,7 @@ public class DecafParser extends Parser {
 			setState(132);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IDENTIIER) | (1L << BRACKET_OPEN) | (1L << IF) | (1L << FOR) | (1L << RETURN) | (1L << BREAK) | (1L << CONTINUE) | (1L << CALLOUT))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << FOR) | (1L << RETURN) | (1L << BREAK) | (1L << CONTINUE) | (1L << CALLOUT) | (1L << IDENTIIER) | (1L << BRACKET_OPEN))) != 0)) {
 				{
 				{
 				setState(129); statement();
@@ -764,6 +765,7 @@ public class DecafParser extends Parser {
 		public Method_callContext method_call() {
 			return getRuleContext(Method_callContext.class,0);
 		}
+		public TerminalNode ASSIGNMENT() { return getToken(DecafParser.ASSIGNMENT, 0); }
 		public TerminalNode CONTINUE() { return getToken(DecafParser.CONTINUE, 0); }
 		public TerminalNode IF() { return getToken(DecafParser.IF, 0); }
 		public LocationContext location() {
@@ -790,11 +792,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_statement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterStatement(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitStatement(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitStatement(this);
 		}
 	}
 
@@ -850,7 +852,7 @@ public class DecafParser extends Parser {
 				{
 				setState(155); match(FOR);
 				setState(156); match(IDENTIIER);
-				setState(157); match(T__1);
+				setState(157); match(ASSIGNMENT);
 				setState(158); expr(0);
 				setState(159); match(COMMA);
 				setState(160); expr(0);
@@ -864,7 +866,7 @@ public class DecafParser extends Parser {
 				setState(167);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__0) | (1L << INT_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIIER) | (1L << PARENTHESIS_OPEN) | (1L << CHAR_LITERAL) | (1L << CALLOUT))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CALLOUT) | (1L << INT_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIIER) | (1L << NEGATIVE) | (1L << MINUS) | (1L << PARENTHESIS_OPEN) | (1L << CHAR_LITERAL))) != 0)) {
 					{
 					{
 					setState(164); expr(0);
@@ -940,11 +942,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_method_call; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterMethod_call(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterMethod_call(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitMethod_call(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_call(this);
 		}
 	}
 
@@ -964,7 +966,7 @@ public class DecafParser extends Parser {
 				setState(190);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__0) | (1L << INT_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIIER) | (1L << PARENTHESIS_OPEN) | (1L << CHAR_LITERAL) | (1L << CALLOUT))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << CALLOUT) | (1L << INT_LITERAL) | (1L << BOOL_LITERAL) | (1L << IDENTIIER) | (1L << NEGATIVE) | (1L << MINUS) | (1L << PARENTHESIS_OPEN) | (1L << CHAR_LITERAL))) != 0)) {
 					{
 					{
 					setState(180); expr(0);
@@ -1053,11 +1055,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_method_name; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterMethod_name(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterMethod_name(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitMethod_name(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_name(this);
 		}
 	}
 
@@ -1094,11 +1096,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_location; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterLocation(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterLocation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitLocation(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitLocation(this);
 		}
 	}
 
@@ -1148,6 +1150,7 @@ public class DecafParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
+		public TerminalNode MINUS() { return getToken(DecafParser.MINUS, 0); }
 		public Bin_opContext bin_op() {
 			return getRuleContext(Bin_opContext.class,0);
 		}
@@ -1157,17 +1160,18 @@ public class DecafParser extends Parser {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
+		public TerminalNode NEGATIVE() { return getToken(DecafParser.NEGATIVE, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterExpr(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitExpr(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitExpr(this);
 		}
 	}
 
@@ -1190,13 +1194,13 @@ public class DecafParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,19,_ctx) ) {
 			case 1:
 				{
-				setState(226); match(T__2);
+				setState(226); match(MINUS);
 				setState(227); expr(3);
 				}
 				break;
 			case 2:
 				{
-				setState(228); match(T__0);
+				setState(228); match(NEGATIVE);
 				setState(229); expr(2);
 				}
 				break;
@@ -1270,11 +1274,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_callout_arg; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterCallout_arg(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterCallout_arg(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitCallout_arg(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitCallout_arg(this);
 		}
 	}
 
@@ -1284,14 +1288,14 @@ public class DecafParser extends Parser {
 		try {
 			setState(250);
 			switch (_input.LA(1)) {
-			case T__2:
-			case T__0:
+			case CALLOUT:
 			case INT_LITERAL:
 			case BOOL_LITERAL:
 			case IDENTIIER:
+			case NEGATIVE:
+			case MINUS:
 			case PARENTHESIS_OPEN:
 			case CHAR_LITERAL:
-			case CALLOUT:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(248); expr(0);
@@ -1329,11 +1333,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_bin_op; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterBin_op(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterBin_op(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitBin_op(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitBin_op(this);
 		}
 	}
 
@@ -1373,11 +1377,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_literal; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterLiteral(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterLiteral(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitLiteral(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitLiteral(this);
 		}
 	}
 
@@ -1416,11 +1420,11 @@ public class DecafParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_type; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).enterType(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafListener ) ((DecafListener)listener).exitType(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitType(this);
 		}
 	}
 
@@ -1464,7 +1468,7 @@ public class DecafParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3)\u0105\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3+\u0105\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
@@ -1485,71 +1489,71 @@ public class DecafParser extends Parser {
 		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00f0\n\22\3\22\3\22\3\22"+
 		"\3\22\7\22\u00f6\n\22\f\22\16\22\u00f9\13\22\3\23\3\23\5\23\u00fd\n\23"+
 		"\3\24\3\24\3\25\3\25\3\26\3\26\3\26\2\3\"\27\2\4\6\b\n\f\16\20\22\24\26"+
-		"\30\32\34\36 \"$&(*\2\5\3\2\23\26\4\2\7\b\32\32\4\2%%((\u010f\2,\3\2\2"+
-		"\2\4\66\3\2\2\2\6;\3\2\2\2\bI\3\2\2\2\nN\3\2\2\2\fS\3\2\2\2\16^\3\2\2"+
-		"\2\20a\3\2\2\2\22m\3\2\2\2\24u\3\2\2\2\26z\3\2\2\2\30\u0086\3\2\2\2\32"+
-		"\u00b2\3\2\2\2\34\u00d7\3\2\2\2\36\u00d9\3\2\2\2 \u00e1\3\2\2\2\"\u00ef"+
-		"\3\2\2\2$\u00fc\3\2\2\2&\u00fe\3\2\2\2(\u0100\3\2\2\2*\u0102\3\2\2\2,"+
-		"-\7\34\2\2-.\7\35\2\2./\7\n\2\2/\60\5\4\3\2\60\61\5\n\6\2\61\62\7\13\2"+
-		"\2\62\3\3\2\2\2\63\65\5\6\4\2\64\63\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2"+
-		"\66\67\3\2\2\2\679\3\2\2\28\66\3\2\2\29:\7\17\2\2:\5\3\2\2\2;<\5*\26\2"+
-		"<A\5\b\5\2=>\7\16\2\2>@\5\b\5\2?=\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2"+
-		"\2B\7\3\2\2\2CA\3\2\2\2DJ\7\t\2\2EF\7\t\2\2FG\7\f\2\2GH\7\7\2\2HJ\7\r"+
-		"\2\2ID\3\2\2\2IE\3\2\2\2J\t\3\2\2\2KM\5\f\7\2LK\3\2\2\2MP\3\2\2\2NL\3"+
-		"\2\2\2NO\3\2\2\2O\13\3\2\2\2PN\3\2\2\2QT\5*\26\2RT\7)\2\2SQ\3\2\2\2SR"+
-		"\3\2\2\2TU\3\2\2\2UV\7\t\2\2VW\7\20\2\2WX\5\16\b\2XY\7\21\2\2YZ\5\22\n"+
-		"\2Z\r\3\2\2\2[]\5\20\t\2\\[\3\2\2\2]`\3\2\2\2^\\\3\2\2\2^_\3\2\2\2_\17"+
-		"\3\2\2\2`^\3\2\2\2ab\5*\26\2bc\7\t\2\2cj\3\2\2\2de\7\16\2\2ef\5*\26\2"+
-		"fg\7\t\2\2gi\3\2\2\2hd\3\2\2\2il\3\2\2\2jh\3\2\2\2jk\3\2\2\2k\21\3\2\2"+
-		"\2lj\3\2\2\2mn\7\n\2\2no\5\24\13\2op\5\30\r\2pq\7\13\2\2q\23\3\2\2\2r"+
-		"t\5\26\f\2sr\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2vx\3\2\2\2wu\3\2\2\2"+
-		"xy\7\17\2\2y\25\3\2\2\2z{\5*\26\2{\u0080\7\t\2\2|}\7\16\2\2}\177\7\t\2"+
-		"\2~|\3\2\2\2\177\u0082\3\2\2\2\u0080~\3\2\2\2\u0080\u0081\3\2\2\2\u0081"+
-		"\27\3\2\2\2\u0082\u0080\3\2\2\2\u0083\u0085\5\32\16\2\u0084\u0083\3\2"+
-		"\2\2\u0085\u0088\3\2\2\2\u0086\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087"+
-		"\31\3\2\2\2\u0088\u0086\3\2\2\2\u0089\u008a\5 \21\2\u008a\u008b\7\22\2"+
-		"\2\u008b\u008c\5\"\22\2\u008c\u008d\7\17\2\2\u008d\u00b3\3\2\2\2\u008e"+
-		"\u008f\5\34\17\2\u008f\u0090\7\17\2\2\u0090\u00b3\3\2\2\2\u0091\u0092"+
-		"\7\36\2\2\u0092\u0093\7\20\2\2\u0093\u0094\5\"\22\2\u0094\u0095\7\21\2"+
-		"\2\u0095\u009a\5\22\n\2\u0096\u0097\7\37\2\2\u0097\u0099\5\22\n\2\u0098"+
-		"\u0096\3\2\2\2\u0099\u009c\3\2\2\2\u009a\u0098\3\2\2\2\u009a\u009b\3\2"+
-		"\2\2\u009b\u00b3\3\2\2\2\u009c\u009a\3\2\2\2\u009d\u009e\7 \2\2\u009e"+
-		"\u009f\7\t\2\2\u009f\u00a0\7\4\2\2\u00a0\u00a1\5\"\22\2\u00a1\u00a2\7"+
-		"\16\2\2\u00a2\u00a3\5\"\22\2\u00a3\u00a4\5\22\n\2\u00a4\u00b3\3\2\2\2"+
-		"\u00a5\u00a9\7!\2\2\u00a6\u00a8\5\"\22\2\u00a7\u00a6\3\2\2\2\u00a8\u00ab"+
-		"\3\2\2\2\u00a9\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa\u00ac\3\2\2\2\u00ab"+
-		"\u00a9\3\2\2\2\u00ac\u00b3\7\17\2\2\u00ad\u00ae\7\"\2\2\u00ae\u00b3\7"+
-		"\17\2\2\u00af\u00b0\7#\2\2\u00b0\u00b3\7\17\2\2\u00b1\u00b3\5\22\n\2\u00b2"+
-		"\u0089\3\2\2\2\u00b2\u008e\3\2\2\2\u00b2\u0091\3\2\2\2\u00b2\u009d\3\2"+
-		"\2\2\u00b2\u00a5\3\2\2\2\u00b2\u00ad\3\2\2\2\u00b2\u00af\3\2\2\2\u00b2"+
-		"\u00b1\3\2\2\2\u00b3\33\3\2\2\2\u00b4\u00b5\5\36\20\2\u00b5\u00c0\7\20"+
-		"\2\2\u00b6\u00bb\5\"\22\2\u00b7\u00b8\7\16\2\2\u00b8\u00ba\5\"\22\2\u00b9"+
-		"\u00b7\3\2\2\2\u00ba\u00bd\3\2\2\2\u00bb\u00b9\3\2\2\2\u00bb\u00bc\3\2"+
-		"\2\2\u00bc\u00bf\3\2\2\2\u00bd\u00bb\3\2\2\2\u00be\u00b6\3\2\2\2\u00bf"+
-		"\u00c2\3\2\2\2\u00c0\u00be\3\2\2\2\u00c0\u00c1\3\2\2\2\u00c1\u00c3\3\2"+
-		"\2\2\u00c2\u00c0\3\2\2\2\u00c3\u00c4\7\21\2\2\u00c4\u00d8\3\2\2\2\u00c5"+
-		"\u00c6\7$\2\2\u00c6\u00c7\7\20\2\2\u00c7\u00d3\7\33\2\2\u00c8\u00c9\7"+
-		"\16\2\2\u00c9\u00ce\5$\23\2\u00ca\u00cb\7\16\2\2\u00cb\u00cd\5$\23\2\u00cc"+
-		"\u00ca\3\2\2\2\u00cd\u00d0\3\2\2\2\u00ce\u00cc\3\2\2\2\u00ce\u00cf\3\2"+
-		"\2\2\u00cf\u00d2\3\2\2\2\u00d0\u00ce\3\2\2\2\u00d1\u00c8\3\2\2\2\u00d2"+
-		"\u00d5\3\2\2\2\u00d3\u00d1\3\2\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00d6\3\2"+
-		"\2\2\u00d5\u00d3\3\2\2\2\u00d6\u00d8\7\21\2\2\u00d7\u00b4\3\2\2\2\u00d7"+
-		"\u00c5\3\2\2\2\u00d8\35\3\2\2\2\u00d9\u00da\7\t\2\2\u00da\37\3\2\2\2\u00db"+
-		"\u00e2\7\t\2\2\u00dc\u00dd\7\t\2\2\u00dd\u00de\7\f\2\2\u00de\u00df\5\""+
-		"\22\2\u00df\u00e0\7\r\2\2\u00e0\u00e2\3\2\2\2\u00e1\u00db\3\2\2\2\u00e1"+
-		"\u00dc\3\2\2\2\u00e2!\3\2\2\2\u00e3\u00e4\b\22\1\2\u00e4\u00e5\7\3\2\2"+
-		"\u00e5\u00f0\5\"\22\5\u00e6\u00e7\7\5\2\2\u00e7\u00f0\5\"\22\4\u00e8\u00f0"+
-		"\5 \21\2\u00e9\u00f0\5\34\17\2\u00ea\u00f0\5(\25\2\u00eb\u00ec\7\20\2"+
-		"\2\u00ec\u00ed\5\"\22\2\u00ed\u00ee\7\21\2\2\u00ee\u00f0\3\2\2\2\u00ef"+
-		"\u00e3\3\2\2\2\u00ef\u00e6\3\2\2\2\u00ef\u00e8\3\2\2\2\u00ef\u00e9\3\2"+
-		"\2\2\u00ef\u00ea\3\2\2\2\u00ef\u00eb\3\2\2\2\u00f0\u00f7\3\2\2\2\u00f1"+
-		"\u00f2\f\6\2\2\u00f2\u00f3\5&\24\2\u00f3\u00f4\5\"\22\7\u00f4\u00f6\3"+
-		"\2\2\2\u00f5\u00f1\3\2\2\2\u00f6\u00f9\3\2\2\2\u00f7\u00f5\3\2\2\2\u00f7"+
-		"\u00f8\3\2\2\2\u00f8#\3\2\2\2\u00f9\u00f7\3\2\2\2\u00fa\u00fd\5\"\22\2"+
-		"\u00fb\u00fd\7\33\2\2\u00fc\u00fa\3\2\2\2\u00fc\u00fb\3\2\2\2\u00fd%\3"+
-		"\2\2\2\u00fe\u00ff\t\2\2\2\u00ff\'\3\2\2\2\u0100\u0101\t\3\2\2\u0101)"+
-		"\3\2\2\2\u0102\u0103\t\4\2\2\u0103+\3\2\2\2\30\66AINS^ju\u0080\u0086\u009a"+
-		"\u00a9\u00b2\u00bb\u00c0\u00ce\u00d3\u00d7\u00e1\u00ef\u00f7\u00fc";
+		"\30\32\34\36 \"$&(*\2\5\3\2\26\31\4\2\22\23((\4\2\f\f\17\17\u010f\2,\3"+
+		"\2\2\2\4\66\3\2\2\2\6;\3\2\2\2\bI\3\2\2\2\nN\3\2\2\2\fS\3\2\2\2\16^\3"+
+		"\2\2\2\20a\3\2\2\2\22m\3\2\2\2\24u\3\2\2\2\26z\3\2\2\2\30\u0086\3\2\2"+
+		"\2\32\u00b2\3\2\2\2\34\u00d7\3\2\2\2\36\u00d9\3\2\2\2 \u00e1\3\2\2\2\""+
+		"\u00ef\3\2\2\2$\u00fc\3\2\2\2&\u00fe\3\2\2\2(\u0100\3\2\2\2*\u0102\3\2"+
+		"\2\2,-\7\3\2\2-.\7\4\2\2./\7\35\2\2/\60\5\4\3\2\60\61\5\n\6\2\61\62\7"+
+		"\36\2\2\62\3\3\2\2\2\63\65\5\6\4\2\64\63\3\2\2\2\658\3\2\2\2\66\64\3\2"+
+		"\2\2\66\67\3\2\2\2\679\3\2\2\28\66\3\2\2\29:\7\"\2\2:\5\3\2\2\2;<\5*\26"+
+		"\2<A\5\b\5\2=>\7!\2\2>@\5\b\5\2?=\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2"+
+		"\2B\7\3\2\2\2CA\3\2\2\2DJ\7\24\2\2EF\7\24\2\2FG\7\37\2\2GH\7\22\2\2HJ"+
+		"\7 \2\2ID\3\2\2\2IE\3\2\2\2J\t\3\2\2\2KM\5\f\7\2LK\3\2\2\2MP\3\2\2\2N"+
+		"L\3\2\2\2NO\3\2\2\2O\13\3\2\2\2PN\3\2\2\2QT\5*\26\2RT\7\20\2\2SQ\3\2\2"+
+		"\2SR\3\2\2\2TU\3\2\2\2UV\7\24\2\2VW\7#\2\2WX\5\16\b\2XY\7$\2\2YZ\5\22"+
+		"\n\2Z\r\3\2\2\2[]\5\20\t\2\\[\3\2\2\2]`\3\2\2\2^\\\3\2\2\2^_\3\2\2\2_"+
+		"\17\3\2\2\2`^\3\2\2\2ab\5*\26\2bc\7\24\2\2cj\3\2\2\2de\7!\2\2ef\5*\26"+
+		"\2fg\7\24\2\2gi\3\2\2\2hd\3\2\2\2il\3\2\2\2jh\3\2\2\2jk\3\2\2\2k\21\3"+
+		"\2\2\2lj\3\2\2\2mn\7\35\2\2no\5\24\13\2op\5\30\r\2pq\7\36\2\2q\23\3\2"+
+		"\2\2rt\5\26\f\2sr\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2vx\3\2\2\2wu\3"+
+		"\2\2\2xy\7\"\2\2y\25\3\2\2\2z{\5*\26\2{\u0080\7\24\2\2|}\7!\2\2}\177\7"+
+		"\24\2\2~|\3\2\2\2\177\u0082\3\2\2\2\u0080~\3\2\2\2\u0080\u0081\3\2\2\2"+
+		"\u0081\27\3\2\2\2\u0082\u0080\3\2\2\2\u0083\u0085\5\32\16\2\u0084\u0083"+
+		"\3\2\2\2\u0085\u0088\3\2\2\2\u0086\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087"+
+		"\31\3\2\2\2\u0088\u0086\3\2\2\2\u0089\u008a\5 \21\2\u008a\u008b\7\25\2"+
+		"\2\u008b\u008c\5\"\22\2\u008c\u008d\7\"\2\2\u008d\u00b3\3\2\2\2\u008e"+
+		"\u008f\5\34\17\2\u008f\u0090\7\"\2\2\u0090\u00b3\3\2\2\2\u0091\u0092\7"+
+		"\5\2\2\u0092\u0093\7#\2\2\u0093\u0094\5\"\22\2\u0094\u0095\7$\2\2\u0095"+
+		"\u009a\5\22\n\2\u0096\u0097\7\6\2\2\u0097\u0099\5\22\n\2\u0098\u0096\3"+
+		"\2\2\2\u0099\u009c\3\2\2\2\u009a\u0098\3\2\2\2\u009a\u009b\3\2\2\2\u009b"+
+		"\u00b3\3\2\2\2\u009c\u009a\3\2\2\2\u009d\u009e\7\7\2\2\u009e\u009f\7\24"+
+		"\2\2\u009f\u00a0\7\33\2\2\u00a0\u00a1\5\"\22\2\u00a1\u00a2\7!\2\2\u00a2"+
+		"\u00a3\5\"\22\2\u00a3\u00a4\5\22\n\2\u00a4\u00b3\3\2\2\2\u00a5\u00a9\7"+
+		"\b\2\2\u00a6\u00a8\5\"\22\2\u00a7\u00a6\3\2\2\2\u00a8\u00ab\3\2\2\2\u00a9"+
+		"\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa\u00ac\3\2\2\2\u00ab\u00a9\3\2"+
+		"\2\2\u00ac\u00b3\7\"\2\2\u00ad\u00ae\7\t\2\2\u00ae\u00b3\7\"\2\2\u00af"+
+		"\u00b0\7\n\2\2\u00b0\u00b3\7\"\2\2\u00b1\u00b3\5\22\n\2\u00b2\u0089\3"+
+		"\2\2\2\u00b2\u008e\3\2\2\2\u00b2\u0091\3\2\2\2\u00b2\u009d\3\2\2\2\u00b2"+
+		"\u00a5\3\2\2\2\u00b2\u00ad\3\2\2\2\u00b2\u00af\3\2\2\2\u00b2\u00b1\3\2"+
+		"\2\2\u00b3\33\3\2\2\2\u00b4\u00b5\5\36\20\2\u00b5\u00c0\7#\2\2\u00b6\u00bb"+
+		"\5\"\22\2\u00b7\u00b8\7!\2\2\u00b8\u00ba\5\"\22\2\u00b9\u00b7\3\2\2\2"+
+		"\u00ba\u00bd\3\2\2\2\u00bb\u00b9\3\2\2\2\u00bb\u00bc\3\2\2\2\u00bc\u00bf"+
+		"\3\2\2\2\u00bd\u00bb\3\2\2\2\u00be\u00b6\3\2\2\2\u00bf\u00c2\3\2\2\2\u00c0"+
+		"\u00be\3\2\2\2\u00c0\u00c1\3\2\2\2\u00c1\u00c3\3\2\2\2\u00c2\u00c0\3\2"+
+		"\2\2\u00c3\u00c4\7$\2\2\u00c4\u00d8\3\2\2\2\u00c5\u00c6\7\13\2\2\u00c6"+
+		"\u00c7\7#\2\2\u00c7\u00d3\7)\2\2\u00c8\u00c9\7!\2\2\u00c9\u00ce\5$\23"+
+		"\2\u00ca\u00cb\7!\2\2\u00cb\u00cd\5$\23\2\u00cc\u00ca\3\2\2\2\u00cd\u00d0"+
+		"\3\2\2\2\u00ce\u00cc\3\2\2\2\u00ce\u00cf\3\2\2\2\u00cf\u00d2\3\2\2\2\u00d0"+
+		"\u00ce\3\2\2\2\u00d1\u00c8\3\2\2\2\u00d2\u00d5\3\2\2\2\u00d3\u00d1\3\2"+
+		"\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00d6\3\2\2\2\u00d5\u00d3\3\2\2\2\u00d6"+
+		"\u00d8\7$\2\2\u00d7\u00b4\3\2\2\2\u00d7\u00c5\3\2\2\2\u00d8\35\3\2\2\2"+
+		"\u00d9\u00da\7\24\2\2\u00da\37\3\2\2\2\u00db\u00e2\7\24\2\2\u00dc\u00dd"+
+		"\7\24\2\2\u00dd\u00de\7\37\2\2\u00de\u00df\5\"\22\2\u00df\u00e0\7 \2\2"+
+		"\u00e0\u00e2\3\2\2\2\u00e1\u00db\3\2\2\2\u00e1\u00dc\3\2\2\2\u00e2!\3"+
+		"\2\2\2\u00e3\u00e4\b\22\1\2\u00e4\u00e5\7\34\2\2\u00e5\u00f0\5\"\22\5"+
+		"\u00e6\u00e7\7\32\2\2\u00e7\u00f0\5\"\22\4\u00e8\u00f0\5 \21\2\u00e9\u00f0"+
+		"\5\34\17\2\u00ea\u00f0\5(\25\2\u00eb\u00ec\7#\2\2\u00ec\u00ed\5\"\22\2"+
+		"\u00ed\u00ee\7$\2\2\u00ee\u00f0\3\2\2\2\u00ef\u00e3\3\2\2\2\u00ef\u00e6"+
+		"\3\2\2\2\u00ef\u00e8\3\2\2\2\u00ef\u00e9\3\2\2\2\u00ef\u00ea\3\2\2\2\u00ef"+
+		"\u00eb\3\2\2\2\u00f0\u00f7\3\2\2\2\u00f1\u00f2\f\6\2\2\u00f2\u00f3\5&"+
+		"\24\2\u00f3\u00f4\5\"\22\7\u00f4\u00f6\3\2\2\2\u00f5\u00f1\3\2\2\2\u00f6"+
+		"\u00f9\3\2\2\2\u00f7\u00f5\3\2\2\2\u00f7\u00f8\3\2\2\2\u00f8#\3\2\2\2"+
+		"\u00f9\u00f7\3\2\2\2\u00fa\u00fd\5\"\22\2\u00fb\u00fd\7)\2\2\u00fc\u00fa"+
+		"\3\2\2\2\u00fc\u00fb\3\2\2\2\u00fd%\3\2\2\2\u00fe\u00ff\t\2\2\2\u00ff"+
+		"\'\3\2\2\2\u0100\u0101\t\3\2\2\u0101)\3\2\2\2\u0102\u0103\t\4\2\2\u0103"+
+		"+\3\2\2\2\30\66AINS^ju\u0080\u0086\u009a\u00a9\u00b2\u00bb\u00c0\u00ce"+
+		"\u00d3\u00d7\u00e1\u00ef\u00f7\u00fc";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

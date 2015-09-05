@@ -1,0 +1,3 @@
+parser grammar TestParser;
+
+rule1: 'hello' ID;

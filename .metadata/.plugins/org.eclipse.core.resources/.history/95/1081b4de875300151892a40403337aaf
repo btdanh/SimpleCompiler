@@ -1,0 +1,4 @@
+lexer grammar TestLexer;
+
+ID: '"' (.)+ '"';
+HELLO: 'hello';

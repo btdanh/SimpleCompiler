@@ -1,0 +1,36 @@
+lexer grammar StringLexer;
+
+ASSIGN_OP: '=' | '+=' | '-=';
+ARITH_OP: '+' | '-' | '*' | '/' | '%';
+RELOP: '<' | '>' | '<=' | '>=';
+EQ_OP: '==' | '!=';
+COND_OP: '&&' | '||';
+
+BRACKET_OPEN: '{';
+BRACKET_CLOSE: '}';
+
+SQUARE_BRACKET_OPEN: '[';
+SQUARE_BRACKET_CLOSE: ']';
+COMMA: ',';
+SEMICOLON: ';';
+
+PARENTHESIS_OPEN: '(';
+PARENTHESIS_CLOSE: ')';
+
+
+WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ ->skip;
+BLOCK_COMMENT : '/*' .*? '*/' -> skip;
+EOL_COMMENT : '//' .*? '\n' -> skip;
+
+
+CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
+LSINGLE_QUOTE: '\'' -> more, mode (CHAR_MODE);
+LDOUBLE_QUOTE: '"' -> more, mode (STRING_MODE);
+
+mode CHAR_MODE;
+CHAR_LITERAL: '\'' ->mode (DEFAULT_MODE), channel(100);
+CHAR_TEXT: CHAR ->more;
+
+mode STRING_MODE;
+STRING_LITERAL: '"' ->mode (DEFAULT_MODE), channel(100);
+STRING_TEXT: CHAR -> more;
