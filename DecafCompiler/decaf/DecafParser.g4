@@ -3,13 +3,13 @@ parser grammar DecafParser;
 options{tokenVocab=DecafLexer;}
 
 /* Parser grammar */
-program: CLASS PROGRAM BRACKET_OPEN field_decl_s method_decl_s BRACKET_CLOSE;
+program: CLASS PROGRAM BRACKET_OPEN (field_decl_s)* (method_decl)* BRACKET_CLOSE;
 
-field_decl_s: (field_decl)* SEMICOLON;
+field_decl_s: field_decl SEMICOLON;
 field_decl: type field_decl_name (COMMA field_decl_name)*;
-field_decl_name: (IDENTIIER | IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE);
+field_decl_name: (IDENTIIER | (IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE));
 
-method_decl_s: (method_decl)*;
+
 method_decl: (type | VOID) IDENTIIER PARENTHESIS_OPEN param_decl_s PARENTHESIS_CLOSE block;
 param_decl_s: (param_decl)*; 
 param_decl: (type IDENTIIER) (COMMA type IDENTIIER)*;

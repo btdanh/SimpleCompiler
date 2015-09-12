@@ -8,6 +8,6 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Compiler"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-target scan -debug e:\Google_Drive\NLNNLTr\MIT\p1-provided-files\provided\scanner\char2"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-target parse -debug e:\Google_Drive\NLNNLTr\MIT\p1-provided-files\provided\parser\legal-01"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DecafCompiler"/>
 </launchConfiguration>

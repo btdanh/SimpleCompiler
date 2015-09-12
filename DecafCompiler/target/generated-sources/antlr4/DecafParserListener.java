@@ -8,16 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface DecafParserListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link DecafParser#method_decl_s}.
-	 * @param ctx the parse tree
-	 */
-	void enterMethod_decl_s(@NotNull DecafParser.Method_decl_sContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DecafParser#method_decl_s}.
-	 * @param ctx the parse tree
-	 */
-	void exitMethod_decl_s(@NotNull DecafParser.Method_decl_sContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DecafParser#location}.
 	 * @param ctx the parse tree
 	 */

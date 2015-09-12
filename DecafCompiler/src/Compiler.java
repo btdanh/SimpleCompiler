@@ -1,6 +1,8 @@
 
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTree;
 //import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,35 +24,74 @@ public class Compiler {
 	public static void RunScanner(String inputPath, String outputPath) throws IOException{
 		ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(inputPath));
 		
-		DecafLexer lexicalAnalyzer = new DecafLexer(input);		
+		DecafLexer lexer = new DecafLexer(input);		
 		
-		CommonTokenStream tokens = new CommonTokenStream(lexicalAnalyzer);		
-		DecafParser parser = new DecafParser(tokens);	
-		
+		CommonTokenStream tokens = new CommonTokenStream(lexer);		
+		DecafParser parser = new DecafParser(tokens);
+				
 		
 		File outputFile = new File(outputPath);
 		if(!outputFile.exists()){
 			outputFile.createNewFile();
-		}
+		}	
+		
 		
 		FileWriter output = new FileWriter(outputFile.getAbsolutePath());		
 		BufferedWriter bufferedOutput = new BufferedWriter(output);
-				
-		Map<String, Integer> map = parser.getTokenTypeMap();				
+		DecafLexerErrorListener errorListener = new DecafLexerErrorListener(bufferedOutput);		
+		lexer.addErrorListener(errorListener);
 		
-		for (Token t :  lexicalAnalyzer.getAllTokens()){
+		Map<String, Integer> map = parser.getTokenTypeMap();			
+			
+		for(Token t = lexer.nextToken(); t.getType() != Token.EOF; t = lexer.nextToken()){
 
 			int channel = t.getChannel();
 			String tokenType = (channel == DecafLexer.SHOULD_SHOW) ? LookUpTokenName(map, t.getType()) : "";	
 			
 			bufferedOutput.write(t.getLine() + " " + tokenType + " " + t.getText());
-			bufferedOutput.newLine();
-				
+			bufferedOutput.newLine();		
 		}
+		
+		lexer.removeErrorListener(errorListener);
 		bufferedOutput.close();
 	}
 	
-	public static void RunParser(String inputPath, String outputPath){
+	public static void RunParser(String inputPath, String outputPath) throws IOException{
+		
+		ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(inputPath));
+		
+		DecafLexer lexer = new DecafLexer(input);		
+		
+		CommonTokenStream tokens = new CommonTokenStream(lexer);		
+		DecafParser parser = new DecafParser(tokens);
+		
+		DecafParserErrorListener errorListener = new DecafParserErrorListener();	
+		parser.addErrorListener(errorListener);
+		
+		ParseTree tree = parser.program();
+		System.out.println(tree.toStringTree(parser));
+		
+		File outputFile = new File(outputPath);
+		if(!outputFile.exists()){
+			outputFile.createNewFile();
+		}	
+		
+		
+		FileWriter output = new FileWriter(outputFile.getAbsolutePath());		
+		BufferedWriter bufferedOutput = new BufferedWriter(output);	
+		
+		
+		if(!errorListener.HasErrors()){
+			bufferedOutput.write("0 error");
+		}
+		else{
+			for(String s : errorListener.GetAllErrors()){
+				bufferedOutput.write(s);
+				bufferedOutput.newLine();
+			}
+		}
+		bufferedOutput.close();		
+		parser.removeErrorListener(errorListener);
 		
 	}
 	
@@ -85,7 +126,12 @@ public class Compiler {
 			
 		}
 		if(task.equalsIgnoreCase("parse")){
-			RunParser(inputPath, "output.decaf");
+			try {
+				RunParser(inputPath, "output.decaf");	
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 		}
 		
 		

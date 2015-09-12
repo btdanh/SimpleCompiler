@@ -81,17 +81,19 @@ BLOCK_COMMENT : '/*' .*? '*/' -> skip;
 EOL_COMMENT : '//' .*? '\n' -> skip;
 
 
-fragment CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
-LSINGLE_QUOTE: '\''-> more, mode (CHAR_MODE);
+fragment CHAR: (' ' .. '!') | ('#'..'&')| ('('..'[') | (']'..'~');
+fragment SPECIAL_CHAR: '\\"' | '\\\\' | '\\\'' | '\\n' | '\\t';
+LSINGLE_QUOTE: '\'' -> more, mode(CHAR_MODE);
 LDOUBLE_QUOTE: '"' -> more, mode (STRING_MODE);
 
 mode CHAR_MODE;
-CHAR_LITERAL: '\'' ->mode (DEFAULT_MODE), channel(SHOULD_SHOW);
-CHAR_TEXT: CHAR -> more;
+CHAR_TEXT: (CHAR | SPECIAL_CHAR) -> more, mode(CHAR_RETURN_MODE);
 
+mode CHAR_RETURN_MODE;
+CHAR_LITERAL: '\'' ->mode(DEFAULT_MODE), channel(SHOULD_SHOW);
 
 mode STRING_MODE;
 STRING_LITERAL: '"' ->mode (DEFAULT_MODE), channel(SHOULD_SHOW);
-STRING_TEXT: CHAR -> more;
+STRING_TEXT: (CHAR | SPECIAL_CHAR) -> more;
 
 

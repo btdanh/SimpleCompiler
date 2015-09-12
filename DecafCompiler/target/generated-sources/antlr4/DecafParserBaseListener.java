@@ -16,18 +16,6 @@ public class DecafParserBaseListener implements DecafParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMethod_decl_s(@NotNull DecafParser.Method_decl_sContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMethod_decl_s(@NotNull DecafParser.Method_decl_sContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLocation(@NotNull DecafParser.LocationContext ctx) { }
 	/**
 	 * {@inheritDoc}
