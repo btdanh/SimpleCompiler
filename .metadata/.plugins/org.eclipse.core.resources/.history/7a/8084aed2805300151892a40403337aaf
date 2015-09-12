@@ -1,8 +1,0 @@
-lexer grammar CharLexer;
-
-fragment CHAR: (' ' .. '~') | '\"' | '\\' | '\'' | '\n' | '\t';
-
-LSINGLE_QUOTE: '\'' -> more, mode (CHAR_MODE);
-mode CHAR_MODE;
-CHAR_LITERAL: '\'' ->mode (DEFAULT_MODE), channel(100);
-CHAR_TEXT: . ->more;

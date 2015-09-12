@@ -3,10 +3,9 @@ parser grammar DecafParser;
 options{tokenVocab=DecafLexer;}
 
 /* Parser grammar */
-program: CLASS PROGRAM BRACKET_OPEN (field_decl_s)* (method_decl)* BRACKET_CLOSE;
+program: CLASS PROGRAM BRACKET_OPEN (field_decl)* (method_decl)* BRACKET_CLOSE;
 
-field_decl_s: field_decl SEMICOLON;
-field_decl: type field_decl_name (COMMA field_decl_name)*;
+field_decl: type field_decl_name (COMMA field_decl_name)* SEMICOLON;
 field_decl_name: (IDENTIIER | (IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE));
 
 

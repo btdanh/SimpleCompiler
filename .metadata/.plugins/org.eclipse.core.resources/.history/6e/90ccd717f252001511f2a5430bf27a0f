@@ -1,8 +1,0 @@
-lexer grammar StringGrammar;
-
-LDOUBLE_QUOTE: '\"' -> more, mode (STRING_MODE);
-
-mode STRING_MODE;
-
-RDOUBLE_QUOTE: '\"' ->mode (DEFAULT_MODE);
-STRING_TEXT: . -> more;

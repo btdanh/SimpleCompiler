@@ -2,7 +2,6 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 //import org.antlr.v4.runtime.tree.*;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +18,14 @@ public class Compiler {
 				return entry.getKey();
 		}
 		return "";
+	}
+	public static void RunScanner(String folder)throws IOException{
+		File inputFolder = new File(folder);
+		for(File inputFile : inputFolder.listFiles()){
+			String inputPath = inputFile.getAbsolutePath();
+			RunScanner(inputPath, inputFile.getName()+ ".out");
+		}
+		
 	}
 	
 	public static void RunScanner(String inputPath, String outputPath) throws IOException{
@@ -44,7 +51,7 @@ public class Compiler {
 		Map<String, Integer> map = parser.getTokenTypeMap();			
 			
 		for(Token t = lexer.nextToken(); t.getType() != Token.EOF; t = lexer.nextToken()){
-
+			
 			int channel = t.getChannel();
 			String tokenType = (channel == DecafLexer.SHOULD_SHOW) ? LookUpTokenName(map, t.getType()) : "";	
 			
@@ -118,8 +125,8 @@ public class Compiler {
 		}
 		
 		if(task.equalsIgnoreCase("scan")){
-			try {
-				RunScanner(inputPath, "output.decaf");
+			try {				
+				RunScanner(inputPath);
 			} catch (IOException e) {
 				// TODO: handle exception
 			}

@@ -1,4 +1,0 @@
-grammar Decaf;
-
-Type int | boolean
-

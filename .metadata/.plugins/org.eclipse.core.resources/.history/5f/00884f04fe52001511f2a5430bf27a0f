@@ -1,9 +1,0 @@
-lexer grammar StringLexer;
-
-import CharLexer;
-
-
-LDOUBLE_QUOTE: '"' -> more, mode (STRING_MODE);
-mode STRING_MODE;
-STRING_LITERAL: '"' ->mode (DEFAULT_MODE);
-TEXT: CHAR -> more;

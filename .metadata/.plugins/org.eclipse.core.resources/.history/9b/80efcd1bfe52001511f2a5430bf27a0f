@@ -1,9 +1,0 @@
-lexer grammar StringLexer;
-
-options{tokenVob = CharLexer;}
-
-
-LDOUBLE_QUOTE: '"' -> more, mode (STRING_MODE);
-mode STRING_MODE;
-STRING_LITERAL: '"' ->mode (DEFAULT_MODE), channel(100);
-TEXT: CHAR -> more;

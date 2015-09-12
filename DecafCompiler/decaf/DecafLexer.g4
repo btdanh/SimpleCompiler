@@ -37,14 +37,13 @@ HEX_PRFEFIX: '0x';
 INT_LITERAL:(DECIMAL_LITERAL | HEX_LITERAL)->channel(SHOULD_SHOW);
 BOOL_LITERAL: ('true' | 'false')->channel(SHOULD_SHOW);
 
-fragment ALPHA: ('a' .. 'z') | ('A' .. 'Z') | '_';
-fragment DIGIT: ('0' .. '9');
+fragment ALPHA: [a-zA-Z_];
+fragment DIGIT: [0-9];
 fragment ALPHA_NUM: ALPHA | DIGIT;
-fragment HEX_DIGIT: DIGIT | ('a' .. 'f') | ('A' .. 'F');
+fragment HEX_DIGIT: DIGIT | [a-fA-F];
 
-
-fragment ID: ALPHA (ALPHA_NUM)*;  
-IDENTIIER: (ID { 
+fragment ID: ALPHA (ALPHA_NUM)*;
+IDENTIIER: (ID {	
 	if(keywords.containsKey(getText())){
 		setType(keywords.get(getText()));
 	}
@@ -76,7 +75,7 @@ PARENTHESIS_OPEN: '(';
 PARENTHESIS_CLOSE: ')';
 
 
-WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ ->skip;
+WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ -> skip;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip;
 EOL_COMMENT : '//' .*? '\n' -> skip;
 
@@ -95,5 +94,4 @@ CHAR_LITERAL: '\'' ->mode(DEFAULT_MODE), channel(SHOULD_SHOW);
 mode STRING_MODE;
 STRING_LITERAL: '"' ->mode (DEFAULT_MODE), channel(SHOULD_SHOW);
 STRING_TEXT: (CHAR | SPECIAL_CHAR) -> more;
-
 
