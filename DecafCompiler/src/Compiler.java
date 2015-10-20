@@ -18,15 +18,7 @@ public class Compiler {
 				return entry.getKey();
 		}
 		return "";
-	}
-	public static void RunScanner(String folder)throws IOException{
-		File inputFolder = new File(folder);
-		for(File inputFile : inputFolder.listFiles()){
-			String inputPath = inputFile.getAbsolutePath();
-			RunScanner(inputPath, inputFile.getName()+ ".out");
-		}
-		
-	}
+	}	
 	
 	public static void RunScanner(String inputPath, String outputPath) throws IOException{
 		ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(inputPath));
@@ -52,8 +44,15 @@ public class Compiler {
 			
 		for(Token t = lexer.nextToken(); t.getType() != Token.EOF; t = lexer.nextToken()){
 			
-			int channel = t.getChannel();
-			String tokenType = (channel == DecafLexer.SHOULD_SHOW) ? LookUpTokenName(map, t.getType()) : "";	
+			int type = t.getType();
+			String tokenType = "";
+			if(type == DecafLexer.INT_LITERAL || 
+					type == DecafLexer.BOOL_LITERAL ||  
+					type == DecafLexer.CHAR_LITERAL ||
+					type == DecafLexer.STRING_LITERAL ||
+					type == DecafLexer.IDENTIIER){
+				tokenType =  LookUpTokenName(map, t.getType());
+			}
 			
 			bufferedOutput.write(t.getLine() + " " + tokenType + " " + t.getText());
 			bufferedOutput.newLine();		
@@ -126,7 +125,7 @@ public class Compiler {
 		
 		if(task.equalsIgnoreCase("scan")){
 			try {				
-				RunScanner(inputPath);
+				RunScanner(inputPath, "output.decaf");
 			} catch (IOException e) {
 				// TODO: handle exception
 			}

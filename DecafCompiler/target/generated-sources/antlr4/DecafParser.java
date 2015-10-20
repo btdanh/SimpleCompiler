@@ -30,7 +30,7 @@ public class DecafParser extends Parser {
 		"INT_LITERAL", "BOOL_LITERAL", "IDENTIIER", "ASSIGN_OP", "ARITH_OP", "RELOP", 
 		"EQ_OP", "COND_OP", "'!'", "'='", "'-'", "'{'", "'}'", "'['", "']'", "','", 
 		"';'", "'('", "')'", "WHITESPACE", "BLOCK_COMMENT", "EOL_COMMENT", "CHAR_LITERAL", 
-		"STRING_LITERAL", "'''", "'\"'"
+		"STRING_LITERAL", "LSINGLE_QUOTE", "LDOUBLE_QUOTE"
 	};
 	public static final int
 		RULE_program = 0, RULE_field_decl = 1, RULE_field_decl_name = 2, RULE_method_decl = 3, 

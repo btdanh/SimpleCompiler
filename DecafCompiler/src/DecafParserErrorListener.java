@@ -44,7 +44,9 @@ public class DecafParserErrorListener implements ANTLRErrorListener {
 	public void syntaxError(Recognizer<?, ?> arg0, Object arg1, int arg2, int arg3, String arg4,
 			RecognitionException arg5) {
 		// TODO Auto-generated method stub
-		_errors.add("line " + arg2 + ":" + arg3 + " " + arg4.toString());
+		//List<String> stack = ((Parser)arg0).getRuleInvocationStack();
+		//System.err.println("rule stack: " + stack);
+		_errors.add("line " + arg2 + ":" + arg3 + ": " + arg4);
 	}
 
 }

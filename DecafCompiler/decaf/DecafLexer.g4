@@ -10,7 +10,6 @@ tokens{CLASS, PROGRAM, IF, ELSE, FOR, RETURN, BREAK, CONTINUE, CALLOUT, BOOLEAN,
 
 @lexer::members{
 	
-	public static final int SHOULD_SHOW = 100;
 	
 	Map<String, Integer> keywords = new HashMap<String, Integer>(){{
 		put("class", DecafParser.CLASS);
@@ -34,8 +33,8 @@ tokens{CLASS, PROGRAM, IF, ELSE, FOR, RETURN, BREAK, CONTINUE, CALLOUT, BOOLEAN,
 fragment DECIMAL_LITERAL: (DIGIT)+ ;
 fragment HEX_LITERAL: HEX_PRFEFIX (HEX_DIGIT)+;
 HEX_PRFEFIX: '0x';
-INT_LITERAL:(DECIMAL_LITERAL | HEX_LITERAL)->channel(SHOULD_SHOW);
-BOOL_LITERAL: ('true' | 'false')->channel(SHOULD_SHOW);
+INT_LITERAL:(DECIMAL_LITERAL | HEX_LITERAL);
+BOOL_LITERAL: ('true' | 'false');
 
 fragment ALPHA: [a-zA-Z_];
 fragment DIGIT: [0-9];
@@ -46,10 +45,7 @@ fragment ID: ALPHA (ALPHA_NUM)*;
 IDENTIIER: (ID {	
 	if(keywords.containsKey(getText())){
 		setType(keywords.get(getText()));
-	}
-	else{
-		_channel = SHOULD_SHOW;
-	}
+	}	
 });
 
 ASSIGN_OP:  '=' | '+=' | '-=';
@@ -89,9 +85,9 @@ mode CHAR_MODE;
 CHAR_TEXT: (CHAR | SPECIAL_CHAR) -> more, mode(CHAR_RETURN_MODE);
 
 mode CHAR_RETURN_MODE;
-CHAR_LITERAL: '\'' ->mode(DEFAULT_MODE), channel(SHOULD_SHOW);
+CHAR_LITERAL: '\'' ->mode(DEFAULT_MODE);
 
 mode STRING_MODE;
-STRING_LITERAL: '"' ->mode (DEFAULT_MODE), channel(SHOULD_SHOW);
+STRING_LITERAL: '"' ->mode (DEFAULT_MODE);
 STRING_TEXT: (CHAR | SPECIAL_CHAR) -> more;
 
