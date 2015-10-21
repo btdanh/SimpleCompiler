@@ -6,7 +6,9 @@ options{tokenVocab=DecafLexer;}
 program: CLASS PROGRAM BRACKET_OPEN (field_decl)* (method_decl)* BRACKET_CLOSE;
 
 field_decl: type field_decl_name (COMMA field_decl_name)* SEMICOLON;
-field_decl_name: (IDENTIIER | (IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE));
+field_decl_name: IDENTIIER  #singleFieldDecl
+				| IDENTIIER SQUARE_BRACKET_OPEN INT_LITERAL SQUARE_BRACKET_CLOSE #arrayFieldDecl
+				;
 
 
 method_decl: (type | VOID) IDENTIIER PARENTHESIS_OPEN param_decl_s PARENTHESIS_CLOSE block;
@@ -31,21 +33,22 @@ method_call: method_name PARENTHESIS_OPEN (expr (COMMA expr)*)* PARENTHESIS_CLOS
 			| CALLOUT PARENTHESIS_OPEN STRING_LITERAL (COMMA callout_arg (COMMA callout_arg)*)* PARENTHESIS_CLOSE;
 method_name: IDENTIIER;
 
-location: IDENTIIER 
-		| IDENTIIER SQUARE_BRACKET_OPEN expr SQUARE_BRACKET_CLOSE;
+location: IDENTIIER 	#firstLocation
+		| IDENTIIER SQUARE_BRACKET_OPEN expr SQUARE_BRACKET_CLOSE  #secondLocation;  
 		
-expr: location
-	| method_call
-	| literal
-	| expr bin_op expr
-	| MINUS expr
-	| NEGATIVE expr
-	| PARENTHESIS_OPEN expr PARENTHESIS_CLOSE; 
+expr: location		#locationExpr
+	| method_call	#methodCallExpr
+	| literal		#literalExpr
+	| expr bin_op expr	#binLiteralExpr
+	| MINUS expr	#negativeExpr
+	| NEGATIVE expr	#negativeExpr
+	| PARENTHESIS_OPEN expr PARENTHESIS_CLOSE	#parenExpr
+	;	 
 
 callout_arg: expr | STRING_LITERAL;
 bin_op: ARITH_OP | RELOP | EQ_OP | COND_OP;
-literal: INT_LITERAL | CHAR_LITERAL | BOOL_LITERAL;
-type: INT | BOOLEAN;
+literal: op = (INT_LITERAL | CHAR_LITERAL | BOOL_LITERAL);
+type: op = (INT | BOOLEAN);
 
  
 

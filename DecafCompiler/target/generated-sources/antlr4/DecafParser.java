@@ -93,6 +93,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitProgram(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -175,6 +180,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitField_decl(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitField_decl(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Field_declContext field_decl() throws RecognitionException {
@@ -215,21 +225,51 @@ public class DecafParser extends Parser {
 	}
 
 	public static class Field_decl_nameContext extends ParserRuleContext {
-		public TerminalNode SQUARE_BRACKET_CLOSE() { return getToken(DecafParser.SQUARE_BRACKET_CLOSE, 0); }
-		public TerminalNode IDENTIIER() { return getToken(DecafParser.IDENTIIER, 0); }
-		public TerminalNode SQUARE_BRACKET_OPEN() { return getToken(DecafParser.SQUARE_BRACKET_OPEN, 0); }
-		public TerminalNode INT_LITERAL() { return getToken(DecafParser.INT_LITERAL, 0); }
 		public Field_decl_nameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_field_decl_name; }
+	 
+		public Field_decl_nameContext() { }
+		public void copyFrom(Field_decl_nameContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SingleFieldDeclContext extends Field_decl_nameContext {
+		public TerminalNode IDENTIIER() { return getToken(DecafParser.IDENTIIER, 0); }
+		public SingleFieldDeclContext(Field_decl_nameContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterField_decl_name(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterSingleFieldDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitField_decl_name(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitSingleFieldDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitSingleFieldDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ArrayFieldDeclContext extends Field_decl_nameContext {
+		public TerminalNode SQUARE_BRACKET_CLOSE() { return getToken(DecafParser.SQUARE_BRACKET_CLOSE, 0); }
+		public TerminalNode IDENTIIER() { return getToken(DecafParser.IDENTIIER, 0); }
+		public TerminalNode SQUARE_BRACKET_OPEN() { return getToken(DecafParser.SQUARE_BRACKET_OPEN, 0); }
+		public TerminalNode INT_LITERAL() { return getToken(DecafParser.INT_LITERAL, 0); }
+		public ArrayFieldDeclContext(Field_decl_nameContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterArrayFieldDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitArrayFieldDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitArrayFieldDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -237,26 +277,25 @@ public class DecafParser extends Parser {
 		Field_decl_nameContext _localctx = new Field_decl_nameContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_field_decl_name);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
 			setState(71);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
+				_localctx = new SingleFieldDeclContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
 				setState(66); match(IDENTIIER);
 				}
 				break;
 			case 2:
-				{
+				_localctx = new ArrayFieldDeclContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
 				setState(67); match(IDENTIIER);
 				setState(68); match(SQUARE_BRACKET_OPEN);
 				setState(69); match(INT_LITERAL);
 				setState(70); match(SQUARE_BRACKET_CLOSE);
 				}
-				}
 				break;
-			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -295,6 +334,11 @@ public class DecafParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_decl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitMethod_decl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -356,6 +400,11 @@ public class DecafParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitParam_decl_s(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitParam_decl_s(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -419,6 +468,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitParam_decl(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitParam_decl(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Param_declContext param_decl() throws RecognitionException {
@@ -481,6 +535,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitBlock(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitBlock(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BlockContext block() throws RecognitionException {
@@ -525,6 +584,11 @@ public class DecafParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitVar_decl_s(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitVar_decl_s(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -586,6 +650,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitVar_decl(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitVar_decl(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Var_declContext var_decl() throws RecognitionException {
@@ -642,6 +711,11 @@ public class DecafParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitStatement_s(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitStatement_s(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -724,6 +798,11 @@ public class DecafParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -875,6 +954,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_call(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitMethod_call(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Method_callContext method_call() throws RecognitionException {
@@ -988,6 +1072,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethod_name(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitMethod_name(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Method_nameContext method_name() throws RecognitionException {
@@ -1011,23 +1100,53 @@ public class DecafParser extends Parser {
 	}
 
 	public static class LocationContext extends ParserRuleContext {
+		public LocationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_location; }
+	 
+		public LocationContext() { }
+		public void copyFrom(LocationContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class FirstLocationContext extends LocationContext {
+		public TerminalNode IDENTIIER() { return getToken(DecafParser.IDENTIIER, 0); }
+		public FirstLocationContext(LocationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterFirstLocation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitFirstLocation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitFirstLocation(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SecondLocationContext extends LocationContext {
 		public TerminalNode SQUARE_BRACKET_CLOSE() { return getToken(DecafParser.SQUARE_BRACKET_CLOSE, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public TerminalNode IDENTIIER() { return getToken(DecafParser.IDENTIIER, 0); }
 		public TerminalNode SQUARE_BRACKET_OPEN() { return getToken(DecafParser.SQUARE_BRACKET_OPEN, 0); }
-		public LocationContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_location; }
+		public SecondLocationContext(LocationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterLocation(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterSecondLocation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitLocation(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitSecondLocation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitSecondLocation(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1038,12 +1157,14 @@ public class DecafParser extends Parser {
 			setState(217);
 			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
+				_localctx = new FirstLocationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(211); match(IDENTIIER);
 				}
 				break;
 			case 2:
+				_localctx = new SecondLocationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(212); match(IDENTIIER);
@@ -1066,39 +1187,138 @@ public class DecafParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public LocationContext location() {
-			return getRuleContext(LocationContext.class,0);
-		}
-		public List<ExprContext> expr() {
-			return getRuleContexts(ExprContext.class);
-		}
-		public TerminalNode PARENTHESIS_CLOSE() { return getToken(DecafParser.PARENTHESIS_CLOSE, 0); }
-		public TerminalNode PARENTHESIS_OPEN() { return getToken(DecafParser.PARENTHESIS_OPEN, 0); }
-		public ExprContext expr(int i) {
-			return getRuleContext(ExprContext.class,i);
-		}
-		public TerminalNode MINUS() { return getToken(DecafParser.MINUS, 0); }
-		public Bin_opContext bin_op() {
-			return getRuleContext(Bin_opContext.class,0);
-		}
-		public Method_callContext method_call() {
-			return getRuleContext(Method_callContext.class,0);
-		}
-		public LiteralContext literal() {
-			return getRuleContext(LiteralContext.class,0);
-		}
-		public TerminalNode NEGATIVE() { return getToken(DecafParser.NEGATIVE, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class LocationExprContext extends ExprContext {
+		public LocationContext location() {
+			return getRuleContext(LocationContext.class,0);
+		}
+		public LocationExprContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterExpr(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterLocationExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitExpr(this);
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitLocationExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitLocationExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LiteralExprContext extends ExprContext {
+		public LiteralContext literal() {
+			return getRuleContext(LiteralContext.class,0);
+		}
+		public LiteralExprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterLiteralExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitLiteralExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitLiteralExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class NegativeExprContext extends ExprContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode MINUS() { return getToken(DecafParser.MINUS, 0); }
+		public TerminalNode NEGATIVE() { return getToken(DecafParser.NEGATIVE, 0); }
+		public NegativeExprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterNegativeExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitNegativeExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitNegativeExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ParenExprContext extends ExprContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode PARENTHESIS_CLOSE() { return getToken(DecafParser.PARENTHESIS_CLOSE, 0); }
+		public TerminalNode PARENTHESIS_OPEN() { return getToken(DecafParser.PARENTHESIS_OPEN, 0); }
+		public ParenExprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterParenExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitParenExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitParenExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MethodCallExprContext extends ExprContext {
+		public Method_callContext method_call() {
+			return getRuleContext(Method_callContext.class,0);
+		}
+		public MethodCallExprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterMethodCallExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitMethodCallExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitMethodCallExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BinLiteralExprContext extends ExprContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public Bin_opContext bin_op() {
+			return getRuleContext(Bin_opContext.class,0);
+		}
+		public BinLiteralExprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).enterBinLiteralExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitBinLiteralExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitBinLiteralExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1121,33 +1341,52 @@ public class DecafParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,19,_ctx) ) {
 			case 1:
 				{
+				_localctx = new NegativeExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
 				setState(220); match(MINUS);
 				setState(221); expr(3);
 				}
 				break;
 			case 2:
 				{
+				_localctx = new NegativeExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(222); match(NEGATIVE);
 				setState(223); expr(2);
 				}
 				break;
 			case 3:
 				{
+				_localctx = new LocationExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(224); location();
 				}
 				break;
 			case 4:
 				{
+				_localctx = new MethodCallExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(225); method_call();
 				}
 				break;
 			case 5:
 				{
+				_localctx = new LiteralExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(226); literal();
 				}
 				break;
 			case 6:
 				{
+				_localctx = new ParenExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(227); match(PARENTHESIS_OPEN);
 				setState(228); expr(0);
 				setState(229); match(PARENTHESIS_CLOSE);
@@ -1164,7 +1403,7 @@ public class DecafParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExprContext(_parentctx, _parentState);
+					_localctx = new BinLiteralExprContext(new ExprContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
 					setState(233);
 					if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -1206,6 +1445,11 @@ public class DecafParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitCallout_arg(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitCallout_arg(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1266,6 +1510,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitBin_op(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitBin_op(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Bin_opContext bin_op() throws RecognitionException {
@@ -1295,6 +1544,7 @@ public class DecafParser extends Parser {
 	}
 
 	public static class LiteralContext extends ParserRuleContext {
+		public Token op;
 		public TerminalNode CHAR_LITERAL() { return getToken(DecafParser.CHAR_LITERAL, 0); }
 		public TerminalNode INT_LITERAL() { return getToken(DecafParser.INT_LITERAL, 0); }
 		public TerminalNode BOOL_LITERAL() { return getToken(DecafParser.BOOL_LITERAL, 0); }
@@ -1310,6 +1560,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitLiteral(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitLiteral(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final LiteralContext literal() throws RecognitionException {
@@ -1320,9 +1575,10 @@ public class DecafParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(248);
+			((LiteralContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL))) != 0)) ) {
-			_errHandler.recoverInline(this);
+				((LiteralContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 			}
 			consume();
 			}
@@ -1339,6 +1595,7 @@ public class DecafParser extends Parser {
 	}
 
 	public static class TypeContext extends ParserRuleContext {
+		public Token op;
 		public TerminalNode BOOLEAN() { return getToken(DecafParser.BOOLEAN, 0); }
 		public TerminalNode INT() { return getToken(DecafParser.INT, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
@@ -1353,6 +1610,11 @@ public class DecafParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof DecafParserListener ) ((DecafParserListener)listener).exitType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DecafParserVisitor ) return ((DecafParserVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TypeContext type() throws RecognitionException {
@@ -1363,9 +1625,10 @@ public class DecafParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(250);
+			((TypeContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !(_la==BOOLEAN || _la==INT) ) {
-			_errHandler.recoverInline(this);
+				((TypeContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 			}
 			consume();
 			}
