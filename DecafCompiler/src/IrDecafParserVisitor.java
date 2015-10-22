@@ -4,13 +4,26 @@ import DecafException.DecafError;
 import DecafException.DecafErrorManager;
 import IR.*;
 
+
 public class IrDecafParserVisitor extends DecafParserBaseVisitor<IrNode> {
 
-	SymbolTable _topTable = new SymbolTable(null);
+	private SymbolTable _topTable;
+
+	public IrDecafParserVisitor(){
+		_topTable = new SymbolTable(null);
+	}
+	@Override public IrNode visitProgram(@NotNull DecafParser.ProgramContext ctx) 
+	{
+		IrProgram node = new IrProgram();
+		for (DecafParser.Field_declContext fieldCtx : ctx.field_decl()) {
+			IrFieldDecl f = (IrFieldDecl)visit(fieldCtx);
+			node.PushField(f);
+		}
+		return node;
+	}
 	
 	@Override public IrNode visitType(@NotNull DecafParser.TypeContext ctx) 
 	{		
-
 		switch (ctx.op.getType()) {
 		case DecafLexer.INT:
 			return IrType.INT;		
@@ -72,40 +85,58 @@ public class IrDecafParserVisitor extends DecafParserBaseVisitor<IrNode> {
 	/*
 	 *  ------------------ Field declare ------------------------
 	 */
+	@Override public IrNode visitField_decl(@NotNull DecafParser.Field_declContext ctx) 
+	{ 
+		IrFieldDecl declNode = new IrFieldDecl();
+		
+		IrType typeNode = (IrType)visit(ctx.type());
+
+		for (DecafParser.Field_decl_nameContext nameCtx : ctx.field_decl_name()) {
+			IrNode node = visit(nameCtx);
+			if (node == null) continue;
+			IrFieldIdentifier field = (IrFieldIdentifier)node;
+			if (field.GetCategory() == IrFieldIdentifier.SINGLE){
+				declNode.Add(field.GetName(), typeNode);
+			}
+			else{
+				declNode.Add(field.GetName(), new IrArray(typeNode, field.GetSize()));
+			}
+		}
+		return declNode;
+	}
+	
 	@Override public IrNode visitSingleFieldDecl(@NotNull DecafParser.SingleFieldDeclContext ctx) 
 	{ 	
-		if(_topTable.Lookup(ctx.getText()) != null){
-			int line = ctx.start.getCharPositionInLine();
-			String message = "\"" + ctx.getText() + "\" already declared";
-			DecafError error = new DecafError(message, line);
+		String identifier = ctx.IDENTIIER().getText();
+		int line = ctx.start.getCharPositionInLine();
+		if(_topTable.Lookup(identifier) != null){
 			
-			DecafErrorManager.Instance().Push(error);
+			String message = "\"" + ctx.getText() + "\" already declared";
+			DecafErrorManager.Instance().Push(new DecafError(message, line));
 			return null;
 		}
-		return IrNameNode(ctx.getText());
-		
-		if(_topTable.Push(ctx.getText(), null, 0))
-		{
-			return new IrFieldDecl(ctx.getText(), null);
-		}
-		else{
-			
-		}		 
+		return new IrFieldIdentifier(ctx.getText(), IrFieldIdentifier.SINGLE, 0);		 
 	}
 	
 	@Override public IrNode visitArrayFieldDecl(@NotNull DecafParser.ArrayFieldDeclContext ctx) 
 	{ 
-		if(_topTable.Push(ctx.getText(), null, 0))
-		{
-			return new IrFieldDecl(ctx.getText(), null);
-		}
-		else{
-			int line = ctx.start.getCharPositionInLine();
+		String identifier = ctx.IDENTIIER().getText();
+		int line = ctx.start.getCharPositionInLine();
+		if(_topTable.Lookup(identifier) != null){
+			// Error duplicate name
 			String message = "\"" + ctx.getText() + "\" already declared";
 			DecafError error = new DecafError(message, line);
 			
 			DecafErrorManager.Instance().Push(error);
 			return null;
 		}
+		int size = Integer.parseInt(ctx.INT_LITERAL().getText());
+		if(size > 0)
+			return new IrFieldIdentifier(ctx.getText(), IrFieldIdentifier.ARRAY, size);
+		
+		String message = "Size of array " + identifier + " should be greater than 0";
+		DecafErrorManager.Instance().Push(new DecafError(message, line));
+		return null;
+		
 	}
 }

@@ -185,12 +185,12 @@ public class DecafParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMethod_decl(@NotNull DecafParser.Method_declContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLiteral(@NotNull DecafParser.LiteralContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLiteral(@NotNull DecafParser.LiteralContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMethod_decl(@NotNull DecafParser.Method_declContext ctx) { return visitChildren(ctx); }
 }

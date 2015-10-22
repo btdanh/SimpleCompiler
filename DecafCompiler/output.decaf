@@ -1,2 +1,1 @@
-line 3:4: mismatched input 'callout' expecting {BOOLEAN, INT, ';'}
-line 3:12: mismatched input '5' expecting STRING_LITERAL
+0 error

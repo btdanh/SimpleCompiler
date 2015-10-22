@@ -2,7 +2,11 @@ package IR;
 
 public class IrIntLiteral extends IrLiteral{
 	
-	public int _value;
+	private int _value;
+	
+	public int GetValue(){
+		return _value;
+	}
 	
 	public IrIntLiteral(int v){
 		super(IrType.INT);

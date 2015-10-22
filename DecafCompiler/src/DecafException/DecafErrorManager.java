@@ -1,11 +1,14 @@
 package DecafException;
-import java.util.List;
+import java.util.*;
 
 public class DecafErrorManager {
 	List<DecafError> _semanticErrors;
 	
 	public static DecafErrorManager _instance = null;
 	
+	public DecafErrorManager(){
+		_semanticErrors = new ArrayList<DecafError>();
+	}
 	public static DecafErrorManager Instance(){
 		if(_instance == null)
 			_instance = new DecafErrorManager();
@@ -21,4 +24,7 @@ public class DecafErrorManager {
 		_semanticErrors.clear();
 	}
 	
+	public List<DecafError> GetErrors(){
+		return _semanticErrors;
+	}
 }

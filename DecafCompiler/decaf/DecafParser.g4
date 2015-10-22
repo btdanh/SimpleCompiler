@@ -15,10 +15,10 @@ method_decl: (type | VOID) IDENTIIER PARENTHESIS_OPEN param_decl_s PARENTHESIS_C
 param_decl_s: (param_decl)*; 
 param_decl: (type IDENTIIER) (COMMA type IDENTIIER)*;
 
-block: BRACKET_OPEN var_decl_s statement_s BRACKET_CLOSE;
-var_decl_s: (var_decl)* SEMICOLON;
+block: BRACKET_OPEN var_decl_s* statement_s* BRACKET_CLOSE;
+var_decl_s: (var_decl) (var_decl)* SEMICOLON;
 var_decl: type IDENTIIER  (COMMA IDENTIIER)*;
-statement_s: (statement)*;
+statement_s: statement (statement)*;
 statement: location ASSIGN_OP expr SEMICOLON
 			| method_call SEMICOLON
 			| IF PARENTHESIS_OPEN expr PARENTHESIS_CLOSE  block (ELSE block)*

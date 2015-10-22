@@ -2,9 +2,16 @@ package IR;
 
 public class IrType extends IrNode {
 	
-	public int _size = 0; //size in byte(s)
-	public String _name = ""; // name of type
+	private int _size = 0; //size in byte(s)
+	private String _name = ""; // name of type
 	
+	public String GetName(){
+		return _name;
+	}
+	
+	public int GetSize(){
+		return _size;
+	}
 	public IrType(String name, int size){
 		_size = size;
 		_name = name;	

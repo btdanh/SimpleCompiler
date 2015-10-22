@@ -3,6 +3,9 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 //import org.antlr.v4.runtime.tree.*;
 
+import DecafException.DecafError;
+import DecafException.DecafErrorManager;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,7 +78,9 @@ public class Compiler {
 		parser.addErrorListener(errorListener);
 		
 		ParseTree tree = parser.program();
-		System.out.println(tree.toStringTree(parser));
+		IrDecafParserVisitor myVisitor = new IrDecafParserVisitor();
+		myVisitor.visit(tree);
+		
 		
 		File outputFile = new File(outputPath);
 		if(!outputFile.exists()){
@@ -99,6 +104,9 @@ public class Compiler {
 		bufferedOutput.close();		
 		parser.removeErrorListener(errorListener);
 		
+		for(DecafError e : DecafErrorManager.Instance().GetErrors()){
+			System.out.println(e._message);
+		}
 	}
 	
 	public static void main(String[] args){

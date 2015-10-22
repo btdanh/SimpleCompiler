@@ -1,8 +1,11 @@
 package IR;
 
 public class IrExpression extends IrNode {
-	public IrType _type;
+	private IrType _type;
 	
+	public IrType GetType(){
+		return _type;
+	}
 	public IrExpression(IrType type){		
 		_type = type;
 	}
