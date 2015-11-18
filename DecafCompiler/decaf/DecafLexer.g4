@@ -27,12 +27,12 @@ tokens{CLASS, PROGRAM, IF, ELSE, FOR, RETURN, BREAK, CONTINUE, CALLOUT, BOOLEAN,
 		put("int", DecafParser.INT);
 		put("void", DecafParser.VOID);		
 	}};
+	
 }
 
 
 fragment DECIMAL_LITERAL: (DIGIT)+ ;
-fragment HEX_LITERAL: HEX_PRFEFIX (HEX_DIGIT)+;
-HEX_PRFEFIX: '0x';
+HEX_LITERAL: '0x' (HEX_DIGIT)+;
 INT_LITERAL:(DECIMAL_LITERAL | HEX_LITERAL);
 BOOL_LITERAL: ('true' | 'false');
 

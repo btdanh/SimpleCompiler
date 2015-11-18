@@ -18,4 +18,7 @@ public class IrArray extends IrType{
 		_typeOf = type;
 	}
 	
+	public String toString() {
+		return "[" + _capacity + "]" + _typeOf.toString();
+	}
 }
